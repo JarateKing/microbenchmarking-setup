@@ -10,16 +10,16 @@ BENCHMARK( Example One, {
 	std::vector<int> arr;
 	
 	// methods
-	void Pre() {
-		arr.resize(1000000);
-		for (int i = 0; i < 1000000; i++) {
+	void Pre(unsigned long long n) {
+		arr.resize(n);
+		for (int i = 0; i < n; i++) {
 			arr[i] = rand();
 		}
 	}
-	void Run() {
+	void Run(unsigned long long  n) {
 		std::sort(arr.begin(), arr.end());
 	}
-	void Post() {
+	void Post(unsigned long long  n) {
 		
 	}
 });
