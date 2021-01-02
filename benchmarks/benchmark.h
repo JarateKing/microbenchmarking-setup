@@ -24,30 +24,31 @@ const bool NEWNAME = [](){                                                      
 	std::cout << '\n';                                                                              \
 																									\
 	for (unsigned long long n = 10; n <= MAXN; n *= 10) {                                           \
-		for (int i = 0; i < 5; i++) {                                                               \
+		for (int i = 0; i < 2; i++) {                                                               \
 			internals.Pre(n);                                                                       \
 			internals.Run(n);                                                                       \
 			internals.Post(n);                                                                      \
 		}                                                                                           \
 																									\
 		std::chrono::high_resolution_clock::time_point t1, t2;                                      \
-		long double time = 0, minimum = DBL_MAX;                                                    \
-		for (int i = 0; i < 30; i++) {                                                              \
+		long double time = 0;                                                                       \
+		for (int i = 0; i < 99; i++) {                                                              \
 			internals.Pre(n);                                                                       \
 																									\
 			t1 = std::chrono::high_resolution_clock::now();                                         \
 			internals.Run(n);                                                                       \
 			t2 = std::chrono::high_resolution_clock::now();                                         \
 			time = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();           \
-			minimum = (time != 0 && time < minimum) ? time : minimum;                               \
+																									\
+			if (time == 0)                                                                          \
+				std::cout << "0.000001 ";                                                           \
+			else                                                                                    \
+			    std::cout << time << ' ';                                                           \
 																									\
 			internals.Post(n);                                                                      \
 		}                                                                                           \
-		if (minimum == DBL_MAX)                                                                     \
-			minimum = 0;                                                                            \
-		std::cout << minimum << ' ';                                                                \
+		std::cout << '\n';                                                                          \
 	}                                                                                               \
-	std::cout << '\n';                                                                              \
 																									\
     return 0;                                                                                       \
 }();
