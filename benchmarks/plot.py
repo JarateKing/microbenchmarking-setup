@@ -15,4 +15,5 @@ for i in range(0, len(inputs), 3):
 
 plt.yscale('log')
 plt.xscale('log')
+plt.legend()
 plt.show()
