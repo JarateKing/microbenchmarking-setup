@@ -1,4 +1,5 @@
 #include "benchmark.h"
+#include "benchmark_options.h"
 #include <vector>
 #include <algorithm>
 

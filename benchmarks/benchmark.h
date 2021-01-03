@@ -3,8 +3,6 @@
 #include <iomanip>
 #include <cfloat>
 
-const unsigned long long MAXN = 1000000ull;
-
 // obtain a unique identifier
 #define NEWNAME_CONCAT2(x,y) x##y
 #define NEWNAME_CONCAT1(x,y) NEWNAME_CONCAT2(x,y)
@@ -18,12 +16,12 @@ const bool NEWNAME = [](){                                                      
     std::cout << ID << '\n';                                                                        \
 	std::cout << std::fixed << std::setprecision(0);                                                \
 																									\
-	for (unsigned long long n = 10; n <= MAXN; n *= 10) {                                           \
+	for (unsigned long long n = MINN; n <= MAXN; n *= MULTN) {                                      \
 		std::cout << n << ' ';                                                                      \
 	}                                                                                               \
 	std::cout << '\n';                                                                              \
 																									\
-	for (unsigned long long n = 10; n <= MAXN; n *= 10) {                                           \
+	for (unsigned long long n = MINN; n <= MAXN; n *= MULTN) {                                      \
 		for (int i = 0; i < 2; i++) {                                                               \
 			internals.Pre(n);                                                                       \
 			internals.Run(n);                                                                       \
