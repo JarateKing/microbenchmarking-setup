@@ -31,4 +31,5 @@ while i < len(inputs):
 plt.yscale('log')
 plt.xscale('log')
 plt.legend()
+plt.savefig('output.png')
 plt.show()
