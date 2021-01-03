@@ -22,7 +22,7 @@ const bool NEWNAME = [](){                                                      
 	std::cout << '\n';                                                                              \
 																									\
 	for (unsigned long long n = MINN; n <= MAXN; n *= MULTN) {                                      \
-		for (int i = 0; i < 2; i++) {                                                               \
+		for (unsigned long long i = 0; i < WARMUPS; i++) {                                          \
 			internals.Pre(n);                                                                       \
 			internals.Run(n);                                                                       \
 			internals.Post(n);                                                                      \
@@ -30,7 +30,7 @@ const bool NEWNAME = [](){                                                      
 																									\
 		std::chrono::high_resolution_clock::time_point t1, t2;                                      \
 		long double time = 0;                                                                       \
-		for (int i = 0; i < 99; i++) {                                                              \
+		for (unsigned long long i = 0; i < RUNS; i++) {                                             \
 			internals.Pre(n);                                                                       \
 																									\
 			t1 = std::chrono::high_resolution_clock::now();                                         \
@@ -39,7 +39,7 @@ const bool NEWNAME = [](){                                                      
 			time = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();           \
 																									\
 			if (time == 0)                                                                          \
-				std::cout << "0.000001 ";                                                           \
+				std::cout << "0.000000001 ";                                                        \
 			else                                                                                    \
 			    std::cout << time << ' ';                                                           \
 																									\
