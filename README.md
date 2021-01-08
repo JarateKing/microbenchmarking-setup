@@ -1,4 +1,6 @@
-# Easy Use Microbenchmarking Setup in C++
+# Microbenchmarking Setup in C++
+
+A microbenchmarking setup intended to be quick and easy to use, to quickly and easily create a microbenchmark to compare runtime performance between algorithms.
 
 ## How To
 
