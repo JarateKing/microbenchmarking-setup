@@ -29,7 +29,7 @@ BENCHMARK( Example One, {
 });
 ```
 
-2. Modify `benchmark_options.h` as needed.
+2. Modify `benchmark_options.h` as needed. This controls things like how many iterations to run of a test, or how big the maximum size of `n` is.
 
 3. Compile all source files:
 
@@ -42,3 +42,5 @@ g++ -g -O2 -std=gnu++17 -static benchmark.cpp example1.cpp example2.cpp
 ```
 ./a.exe | python plot.py
 ```
+
+This both saves the plot as an image and showcases it on your screen.
