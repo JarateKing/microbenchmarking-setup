@@ -16,6 +16,10 @@ namespace benchmarking {
 			
 			return *this;
 		}
+		Dataset sort() {
+			std::sort(arr.begin(), arr.end());
+			return *this;
+		}
 	};
 	
 	void setup() {
