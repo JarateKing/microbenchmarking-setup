@@ -26,6 +26,12 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Dataset multiply(int a) {
+			for (int i = 0; i < arr.size(); i++) {
+				arr[i] *= a;
+			}
+			return *this;
+		}
 	};
 	
 	void setup() {
