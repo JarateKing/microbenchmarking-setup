@@ -2,8 +2,8 @@
 #include <iostream>
 
 std::vector<benchmarking::Dataset> datasets = {
-	{"random", [](int n) -> benchmarking::Data { return benchmarking::random(n).wrap(0,9); }},
-	{"sorted", [](int n) -> benchmarking::Data { return benchmarking::index(n); }},
+	{"random", DATASET_FUNC(benchmarking::random(n).wrap(0,9))},
+	{"sorted", DATASET_FUNC(benchmarking::index(n))},
 };
 
 int main() {
