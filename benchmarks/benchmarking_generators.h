@@ -49,6 +49,15 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Dataset wrap(int min, int max) {
+			max++; // max is inclusive range
+			int range = max - min;
+			for (int i = 0; i < arr.size(); i++) {
+				int v = arr[i];
+				arr[i] = (((v - min) % range) + range) % range + min;
+			}
+			return *this;
+		}
 	};
 	
 	void setup() {
