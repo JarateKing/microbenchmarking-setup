@@ -6,32 +6,32 @@
 namespace benchmarking {
 	std::mt19937 rng;
 	
-	struct Dataset {
+	struct Data {
 		std::vector<int> arr;
 		
-		Dataset reverse() {
+		Data reverse() {
 			for (int i = 0; i < arr.size() / 2; i++) {
 				std::swap(arr[i], arr[arr.size() - 1 - i]);
 			}
 			return *this;
 		}
-		Dataset sort() {
+		Data sort() {
 			std::sort(arr.begin(), arr.end());
 			return *this;
 		}
-		Dataset add(int a) {
+		Data add(int a) {
 			for (int i = 0; i < arr.size(); i++) {
 				arr[i] += a;
 			}
 			return *this;
 		}
-		Dataset multiply(int a) {
+		Data multiply(int a) {
 			for (int i = 0; i < arr.size(); i++) {
 				arr[i] *= a;
 			}
 			return *this;
 		}
-		Dataset replace(int find, int use) {
+		Data replace(int find, int use) {
 			for (int i = 0; i < arr.size(); i++) {
 				if (arr[i] == find) {
 					arr[i] = use;
@@ -39,7 +39,7 @@ namespace benchmarking {
 			}
 			return *this;
 		}
-		Dataset clamp(int min, int max) {
+		Data clamp(int min, int max) {
 			for (int i = 0; i < arr.size(); i++) {
 				if (arr[i] < min)
 					arr[i] = min;
@@ -48,7 +48,7 @@ namespace benchmarking {
 			}
 			return *this;
 		}
-		Dataset wrap(int min, int max) {
+		Data wrap(int min, int max) {
 			max++; // max is inclusive range
 			int range = max - min;
 			for (int i = 0; i < arr.size(); i++) {
@@ -57,7 +57,7 @@ namespace benchmarking {
 			}
 			return *this;
 		}
-		Dataset modulo(int mod) {
+		Data modulo(int mod) {
 			for (int i = 0; i < arr.size(); i++) {
 				arr[i] = arr[i] % mod;
 			}
@@ -69,14 +69,14 @@ namespace benchmarking {
 		rng.seed((uint32_t)std::chrono::steady_clock::now().time_since_epoch().count());
 	}
 	
-	Dataset _getBaseDataset(int n) {
-		Dataset toret;
+	Data _getBaseData(int n) {
+		Data toret;
 		toret.arr.resize(n);
 		return toret;
 	}
 	
-	Dataset index(int n, int increment = 1, int base = 0) {
-		Dataset toret = _getBaseDataset(n);
+	Data index(int n, int increment = 1, int base = 0) {
+		Data toret = _getBaseData(n);
 		
 		for (int i = 0; i < n; i++)
 			toret.arr[i] = base + (i * increment);
@@ -84,8 +84,8 @@ namespace benchmarking {
 		return toret;
 	}
 	
-	Dataset random(int n) {
-		Dataset toret = _getBaseDataset(n);
+	Data random(int n) {
+		Data toret = _getBaseData(n);
 		
 		for (int i = 0; i < n; i++)
 			toret.arr[i] = rng();
