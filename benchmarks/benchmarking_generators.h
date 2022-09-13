@@ -40,6 +40,15 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Dataset clamp(int min, int max) {
+			for (int i = 0; i < arr.size(); i++) {
+				if (arr[i] < min)
+					arr[i] = min;
+				if (arr[i] > max)
+					arr[i] = max;
+			}
+			return *this;
+		}
 	};
 	
 	void setup() {
