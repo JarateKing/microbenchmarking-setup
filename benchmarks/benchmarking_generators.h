@@ -32,6 +32,14 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Dataset replace(int find, int use) {
+			for (int i = 0; i < arr.size(); i++) {
+				if (arr[i] == find) {
+					arr[i] = use;
+				}
+			}
+			return *this;
+		}
 	};
 	
 	void setup() {
