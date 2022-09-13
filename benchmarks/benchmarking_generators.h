@@ -20,6 +20,12 @@ namespace benchmarking {
 			std::sort(arr.begin(), arr.end());
 			return *this;
 		}
+		Dataset add(int a) {
+			for (int i = 0; i < arr.size(); i++) {
+				arr[i] += a;
+			}
+			return *this;
+		}
 	};
 	
 	void setup() {
