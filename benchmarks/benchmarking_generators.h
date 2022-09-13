@@ -13,7 +13,6 @@ namespace benchmarking {
 			for (int i = 0; i < arr.size() / 2; i++) {
 				std::swap(arr[i], arr[arr.size() - 1 - i]);
 			}
-			
 			return *this;
 		}
 		Dataset sort() {
@@ -55,6 +54,12 @@ namespace benchmarking {
 			for (int i = 0; i < arr.size(); i++) {
 				int v = arr[i];
 				arr[i] = (((v - min) % range) + range) % range + min;
+			}
+			return *this;
+		}
+		Dataset modulo(int mod) {
+			for (int i = 0; i < arr.size(); i++) {
+				arr[i] = arr[i] % mod;
 			}
 			return *this;
 		}
