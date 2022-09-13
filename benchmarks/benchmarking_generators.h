@@ -1,12 +1,21 @@
 #include <vector>
 #include <chrono>
 #include <random>
+#include <algorithm>
 
 namespace benchmarking {
 	std::mt19937 rng;
 	
 	struct Dataset {
 		std::vector<int> arr;
+		
+		Dataset reverse() {
+			for (int i = 0; i < arr.size() / 2; i++) {
+				std::swap(arr[i], arr[arr.size() - 1 - i]);
+			}
+			
+			return *this;
+		}
 	};
 	
 	void setup() {

@@ -4,7 +4,7 @@
 int main() {
 	benchmarking::setup();
 	
-	benchmarking::Dataset dataset = benchmarking::random(10);
+	benchmarking::Dataset dataset = benchmarking::index(10).reverse();
 	
 	for (int i = 0; i < 10; i++)
 		std::cout << dataset.arr[i] << ' ';
