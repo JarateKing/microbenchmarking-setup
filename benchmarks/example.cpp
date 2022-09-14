@@ -34,6 +34,7 @@ int main() {
 	options.measured_runs = 3;
 	options.target_runtime = 0.1;
 	options.n = {10ull, 15ull};
+	options.isMutable = true;
 	
 	benchmarking::run(options, datasets, algorithms);
 }
