@@ -25,6 +25,10 @@ namespace benchmarking {
 			std::sort(arr.begin(), arr.end());
 			return *this;
 		}
+		Data sort_region(int start, int end) {
+			std::sort(arr.begin() + start, arr.begin() + end);
+			return *this;
+		}
 		Data add(int a) {
 			for (int i = 0; i < arr.size(); i++) {
 				arr[i] += a;
