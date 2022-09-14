@@ -35,19 +35,24 @@ namespace benchmarking {
 		std::cout << datasets.size() << ' ' << algorithms.size() << '\n';
 		std::cout << std::fixed << std::setprecision(10); 
 		
+		for (Algorithm algo : algorithms) {
+			std::cout << algo.name << '\n';
+		}
+		
+		for (unsigned long long n : options.n) {
+			std::cout << n << ' ';
+		}
+		std::cout << '\n';
+		
 		for (Dataset dataset : datasets) {
 			std::cout << dataset.name << '\n';
 			
 			for (unsigned long long n : options.n) {
-				std::cout << n << '\n';
-				
 				std::vector<int> data;
 				if (!options.isMutable)
 					data = dataset.generator(n).arr;
 				
 				for (Algorithm algo : algorithms) {
-					std::cout << algo.name << '\n';
-					
 					for (int i = 0; i < options.warmup_runs; i++) {
 						if (options.isMutable)
 							data = dataset.generator(n).arr;
