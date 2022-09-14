@@ -32,12 +32,13 @@ namespace benchmarking {
 	};
 	
 	void run(Options options, std::vector<Dataset> datasets, std::vector<Algorithm> algorithms) {
+		std::cout << datasets.size() << ' ' << algorithms.size() << '\n';
+		
 		for (Dataset dataset : datasets) {
 			std::cout << dataset.name << '\n';
 			
 			for (unsigned long long n : options.n) {
 				std::cout << n << '\n';
-				
 				
 				std::vector<int> data;
 				if (!options.isMutable)
