@@ -29,6 +29,10 @@ namespace benchmarking {
 			std::sort(arr.begin() + start, arr.begin() + end);
 			return *this;
 		}
+		Data shuffle() {
+			std::shuffle(arr.begin(), arr.end(), rng);
+			return *this;
+		}
 		Data add(int a) {
 			for (int i = 0; i < arr.size(); i++) {
 				arr[i] += a;
