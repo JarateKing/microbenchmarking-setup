@@ -2,13 +2,29 @@
 #include <iostream>
 
 std::vector<benchmarking::Dataset> datasets = {
-	{"random", DATASET_FUNC(benchmarking::random(n).wrap(0,9))},
-	{"sorted", DATASET_FUNC(benchmarking::index(n))},
+	{
+		"random",
+		DATASET_FUNC( benchmarking::random(n).wrap(0,9) ),
+	},
+	{
+		"sorted", 
+		DATASET_FUNC( benchmarking::index(n) ),
+	},
 };
 
 std::vector<benchmarking::Algorithm> algorithms = {
-	{"std::sort", ALGO_SETUP(), ALGO_BENCHMARK( std::sort(arr.begin(), arr.end()); ), ALGO_CLEANUP()},
-	{"std::stable_sort", ALGO_SETUP(), ALGO_BENCHMARK( std::stable_sort(arr.begin(), arr.end()); ), ALGO_CLEANUP()},
+	{
+		"std::sort",
+		ALGO_SETUP(),
+		ALGO_BENCHMARK( std::sort(arr.begin(), arr.end()); ),
+		ALGO_CLEANUP(),
+	},
+	{
+		"std::stable_sort",
+		ALGO_SETUP(),
+		ALGO_BENCHMARK( std::stable_sort(arr.begin(), arr.end()); ),
+		ALGO_CLEANUP(),
+	},
 };
 
 int main() {
