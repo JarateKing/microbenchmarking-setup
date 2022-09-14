@@ -73,6 +73,10 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Data set(int index, int value) {
+			arr[index] = value;
+			return *this;
+		}
 	};
 	
 	void setup() {
