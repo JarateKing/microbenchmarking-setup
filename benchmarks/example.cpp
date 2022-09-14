@@ -6,6 +6,11 @@ std::vector<benchmarking::Dataset> datasets = {
 	{"sorted", DATASET_FUNC(benchmarking::index(n))},
 };
 
+std::vector<benchmarking::Algorithm> algorithms = {
+	{"std::sort", ALGO_SETUP(), ALGO_BENCHMARK( std::sort(arr.begin(), arr.end()); ), ALGO_CLEANUP()},
+	{"std::stable_sort", ALGO_SETUP(), ALGO_BENCHMARK( std::stable_sort(arr.begin(), arr.end()); ), ALGO_CLEANUP()},
+};
+
 int main() {
 	benchmarking::setup();
 	
