@@ -15,6 +15,12 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Data reverse_region(int start, int end) {
+			for (int i = 0; i < (end - start) / 2; i++) {
+				std::swap(arr[start + i], arr[end - 1 - i]);
+			}
+			return *this;
+		}
 		Data sort() {
 			std::sort(arr.begin(), arr.end());
 			return *this;
