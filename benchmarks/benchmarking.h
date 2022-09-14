@@ -10,7 +10,14 @@ namespace benchmarking {
 		std::function<Data(int)> generator;
 	};
 	
-	void run(std::vector<Dataset> datasets) {
+	struct Options {
+		int warmup_runs = 2;
+		int measured_runs = 5;
+		double target_runtime = 1.0;
+		std::vector<unsigned long long> n = {10ull, 100ull, 1000ull};
+	};
+	
+	void run(Options options, std::vector<Dataset> datasets) {
 		
 		for (auto e : datasets) {
 			Data data = e.generator(10);

@@ -9,5 +9,10 @@ std::vector<benchmarking::Dataset> datasets = {
 int main() {
 	benchmarking::setup();
 	
-	benchmarking::run(datasets);
+	benchmarking::Options options;
+	options.measured_runs = 10;
+	options.target_runtime = 1.0;
+	options.n = {10ull, 100ull, 1000ull, 10000ull, 100000ull};
+	
+	benchmarking::run(options, datasets);
 }
