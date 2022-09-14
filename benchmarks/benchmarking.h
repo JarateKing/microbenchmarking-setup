@@ -37,11 +37,24 @@ namespace benchmarking {
 			for (unsigned long long n : options.n) {
 				std::cout << n << '\n';
 				
+				std::vector<int> data = dataset.generator(n).arr;
+				
 				for (Algorithm algo : algorithms) {
 					std::cout << algo.name << '\n';
 					
-					for (int i = 0; i < options.measured_runs; i++)
+					for (int i = 0; i < options.warmup_runs; i++) {
+						algo.setup(n, data);
+						algo.benchmark(n, data);
+						algo.cleanup(n, data);
+					}
+					
+					for (int i = 0; i < options.measured_runs; i++) {
+						algo.setup(n, data);
+						algo.benchmark(n, data);
+						algo.cleanup(n, data);
+						
 						std::cout << "1 ";
+					}
 					std::cout << '\n';
 				}
 			}
