@@ -1,6 +1,9 @@
 #include "benchmarking_generators.h"
 #include <functional>
 #include <iostream>
+#include <chrono>
+#include <iomanip>
+#include <cfloat>
 
 #define DATASET_FUNC(f) [](int n) -> benchmarking::Data { return f; }
 #define ALGO_SETUP(f) [](int n, std::vector<int> arr) { f }
@@ -28,14 +31,19 @@ namespace benchmarking {
 	};
 	
 	void run(Options options, std::vector<Dataset> datasets, std::vector<Algorithm> algorithms) {
-		for (unsigned long long n : options.n) {
-			for (auto e : datasets) {
-				Data data = e.generator(n);
+		for (Dataset dataset : datasets) {
+			std::cout << dataset.name << '\n';
+			
+			for (unsigned long long n : options.n) {
+				std::cout << n << '\n';
 				
-				std::cout << e.name << ": ";
-				for (int i = 0; i < n; i++)
-					std::cout << data.arr[i] << ' ';
-				std::cout << '\n';
+				for (Algorithm algo : algorithms) {
+					std::cout << algo.name << '\n';
+					
+					for (int i = 0; i < options.measured_runs; i++)
+						std::cout << "1 ";
+					std::cout << '\n';
+				}
 			}
 		}
 	}
