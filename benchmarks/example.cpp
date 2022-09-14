@@ -31,9 +31,9 @@ int main() {
 	benchmarking::setup();
 	
 	benchmarking::Options options;
-	options.measured_runs = 10;
-	options.target_runtime = 1.0;
-	options.n = {10ull, 20ull};
+	options.measured_runs = 3;
+	options.target_runtime = 0.1;
+	options.n = {10ull, 15ull};
 	
 	benchmarking::run(options, datasets, algorithms);
 }

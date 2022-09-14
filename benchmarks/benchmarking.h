@@ -26,7 +26,7 @@ namespace benchmarking {
 	struct Options {
 		int warmup_runs = 2;
 		int measured_runs = 5;
-		double target_runtime = 1.0;
+		long double target_runtime = 1.0;
 		std::vector<unsigned long long> n = {10ull, 100ull, 1000ull};
 	};
 	
@@ -48,12 +48,25 @@ namespace benchmarking {
 						algo.cleanup(n, data);
 					}
 					
+					std::chrono::high_resolution_clock::time_point t1, t2;
+					
 					for (int i = 0; i < options.measured_runs; i++) {
-						algo.setup(n, data);
-						algo.benchmark(n, data);
-						algo.cleanup(n, data);
+						long double time = 0;
+						double count = 0;
 						
-						std::cout << "1 ";
+						while (time < options.target_runtime * 1000000000.0) {
+							algo.setup(n, data);
+							
+							t1 = std::chrono::high_resolution_clock::now();
+							algo.benchmark(n, data);
+							t2 = std::chrono::high_resolution_clock::now();
+							time += std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+							count++;
+							
+							algo.cleanup(n, data);
+						}
+						
+						std::cout << (count * (1000000000.0 / time)) << ' ';
 					}
 					std::cout << '\n';
 				}
