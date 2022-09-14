@@ -81,7 +81,7 @@ namespace benchmarking {
 			arr[index] = value;
 			return *this;
 		}
-		Data set_range(int start, int end, int value) {
+		Data set_region(int start, int end, int value) {
 			for (int i = start; i <= end; i++) {
 				arr[i] = value;
 			}
