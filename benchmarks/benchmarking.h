@@ -27,7 +27,7 @@ namespace benchmarking {
 		std::vector<unsigned long long> n = {10ull, 100ull, 1000ull};
 	};
 	
-	void run(Options options, std::vector<Dataset> datasets) {
+	void run(Options options, std::vector<Dataset> datasets, std::vector<Algorithm> algorithms) {
 		
 		for (auto e : datasets) {
 			Data data = e.generator(10);

@@ -19,5 +19,5 @@ int main() {
 	options.target_runtime = 1.0;
 	options.n = {10ull, 100ull, 1000ull, 10000ull, 100000ull};
 	
-	benchmarking::run(options, datasets);
+	benchmarking::run(options, datasets, algorithms);
 }
