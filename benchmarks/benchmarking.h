@@ -33,6 +33,7 @@ namespace benchmarking {
 	
 	void run(Options options, std::vector<Dataset> datasets, std::vector<Algorithm> algorithms) {
 		std::cout << datasets.size() << ' ' << algorithms.size() << '\n';
+		std::cout << std::fixed << std::setprecision(10); 
 		
 		for (Dataset dataset : datasets) {
 			std::cout << dataset.name << '\n';
