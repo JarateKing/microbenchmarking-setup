@@ -33,6 +33,10 @@ namespace benchmarking {
 			std::shuffle(arr.begin(), arr.end(), rng);
 			return *this;
 		}
+		Data shuffle_region(int start, int end) {
+			std::shuffle(arr.begin() + start, arr.begin() + end, rng);
+			return *this;
+		}
 		Data add(int a) {
 			for (int i = 0; i < arr.size(); i++) {
 				arr[i] += a;
