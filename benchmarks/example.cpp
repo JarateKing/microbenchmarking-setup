@@ -4,7 +4,7 @@
 std::vector<benchmarking::Dataset> datasets = {
 	{
 		"random",
-		DATASET_FUNC( benchmarking::random(n).wrap(0,9) ),
+		DATASET_FUNC( benchmarking::random(n).wrap(0,n-1) ),
 	},
 	{
 		"sorted", 
@@ -33,7 +33,7 @@ int main() {
 	benchmarking::Options options;
 	options.measured_runs = 10;
 	options.target_runtime = 1.0;
-	options.n = {10ull, 100ull, 1000ull, 10000ull, 100000ull};
+	options.n = {10ull, 20ull};
 	
 	benchmarking::run(options, datasets, algorithms);
 }

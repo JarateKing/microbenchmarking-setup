@@ -28,14 +28,15 @@ namespace benchmarking {
 	};
 	
 	void run(Options options, std::vector<Dataset> datasets, std::vector<Algorithm> algorithms) {
-		
-		for (auto e : datasets) {
-			Data data = e.generator(10);
-			
-			std::cout << e.name << ": ";
-			for (int i = 0; i < 10; i++)
-				std::cout << data.arr[i] << ' ';
-			std::cout << '\n';
+		for (unsigned long long n : options.n) {
+			for (auto e : datasets) {
+				Data data = e.generator(n);
+				
+				std::cout << e.name << ": ";
+				for (int i = 0; i < n; i++)
+					std::cout << data.arr[i] << ' ';
+				std::cout << '\n';
+			}
 		}
 	}
 }
