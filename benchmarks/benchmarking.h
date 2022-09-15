@@ -5,10 +5,10 @@
 #include <iomanip>
 #include <cfloat>
 
-#define DATASET_FUNC(f) [](int n) -> benchmarking::Data { return f; }
-#define ALGO_SETUP(f) [](int n, std::vector<int> arr) { f }
-#define ALGO_BENCHMARK(f) [](int n, std::vector<int> arr) { f }
-#define ALGO_CLEANUP(f) [](int n, std::vector<int> arr) { f }
+#define DATASET_FUNC(f) [](unsigned long long n) -> benchmarking::Data { return f; }
+#define ALGO_SETUP(f) [](unsigned long long n, std::vector<int> arr) { f }
+#define ALGO_BENCHMARK(f) [](unsigned long long n, std::vector<int> arr) { f }
+#define ALGO_CLEANUP(f) [](unsigned long long n, std::vector<int> arr) { f }
 
 namespace benchmarking {
 	struct Dataset {
@@ -18,9 +18,9 @@ namespace benchmarking {
 	
 	struct Algorithm {
 		std::string name;
-		std::function<void(int, std::vector<int>)> setup;
-		std::function<void(int, std::vector<int>)> benchmark;
-		std::function<void(int, std::vector<int>)> cleanup;
+		std::function<void(unsigned long long, std::vector<int>)> setup;
+		std::function<void(unsigned long long, std::vector<int>)> benchmark;
+		std::function<void(unsigned long long, std::vector<int>)> cleanup;
 	};
 	
 	struct Options {

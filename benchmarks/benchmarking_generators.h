@@ -10,13 +10,13 @@ namespace benchmarking {
 		std::vector<int> arr;
 		
 		Data reverse() {
-			for (int i = 0; i < arr.size() / 2; i++) {
+			for (unsigned long long i = 0; i < arr.size() / 2; i++) {
 				std::swap(arr[i], arr[arr.size() - 1 - i]);
 			}
 			return *this;
 		}
-		Data reverse_region(int start, int end) {
-			for (int i = 0; i < (end - start) / 2; i++) {
+		Data reverse_region(unsigned long long start, unsigned long long end) {
+			for (unsigned long long i = 0; i < (end - start) / 2; i++) {
 				std::swap(arr[start + i], arr[end - 1 - i]);
 			}
 			return *this;
@@ -25,7 +25,7 @@ namespace benchmarking {
 			std::sort(arr.begin(), arr.end());
 			return *this;
 		}
-		Data sort_region(int start, int end) {
+		Data sort_region(unsigned long long start, unsigned long long end) {
 			std::sort(arr.begin() + start, arr.begin() + end);
 			return *this;
 		}
@@ -33,18 +33,18 @@ namespace benchmarking {
 			std::shuffle(arr.begin(), arr.end(), rng);
 			return *this;
 		}
-		Data shuffle_region(int start, int end) {
+		Data shuffle_region(unsigned long long start, unsigned long long end) {
 			std::shuffle(arr.begin() + start, arr.begin() + end, rng);
 			return *this;
 		}
 		Data add(int a) {
-			for (int i = 0; i < arr.size(); i++) {
+			for (unsigned long long i = 0; i < arr.size(); i++) {
 				arr[i] += a;
 			}
 			return *this;
 		}
 		Data multiply(int a) {
-			for (int i = 0; i < arr.size(); i++) {
+			for (unsigned long long i = 0; i < arr.size(); i++) {
 				arr[i] *= a;
 			}
 			return *this;
@@ -58,7 +58,7 @@ namespace benchmarking {
 			return *this;
 		}
 		Data clamp(int min, int max) {
-			for (int i = 0; i < arr.size(); i++) {
+			for (unsigned long long i = 0; i < arr.size(); i++) {
 				if (arr[i] < min)
 					arr[i] = min;
 				if (arr[i] > max)
@@ -69,24 +69,24 @@ namespace benchmarking {
 		Data wrap(int min, int max) {
 			max++; // max is inclusive range
 			int range = max - min;
-			for (int i = 0; i < arr.size(); i++) {
+			for (unsigned long long i = 0; i < arr.size(); i++) {
 				int v = arr[i];
 				arr[i] = (((v - min) % range) + range) % range + min;
 			}
 			return *this;
 		}
 		Data modulo(int mod) {
-			for (int i = 0; i < arr.size(); i++) {
+			for (unsigned long long i = 0; i < arr.size(); i++) {
 				arr[i] = arr[i] % mod;
 			}
 			return *this;
 		}
-		Data set(int index, int value) {
+		Data set(unsigned long long index, int value) {
 			arr[index] = value;
 			return *this;
 		}
-		Data set_region(int start, int end, int value) {
-			for (int i = start; i <= end; i++) {
+		Data set_region(unsigned long long start, unsigned long long end, int value) {
+			for (unsigned long long i = start; i <= end; i++) {
 				arr[i] = value;
 			}
 			return *this;
@@ -97,25 +97,25 @@ namespace benchmarking {
 		rng.seed((uint32_t)std::chrono::steady_clock::now().time_since_epoch().count());
 	}
 	
-	Data _getBaseData(int n) {
+	Data _getBaseData(unsigned long long n) {
 		Data toret;
 		toret.arr.resize(n);
 		return toret;
 	}
 	
-	Data index(int n, int increment = 1, int base = 0) {
+	Data index(unsigned long long n, int increment = 1, int base = 0) {
 		Data toret = _getBaseData(n);
 		
-		for (int i = 0; i < n; i++)
+		for (unsigned long long i = 0; i < n; i++)
 			toret.arr[i] = base + (i * increment);
 		
 		return toret;
 	}
 	
-	Data random(int n) {
+	Data random(unsigned long long n) {
 		Data toret = _getBaseData(n);
 		
-		for (int i = 0; i < n; i++)
+		for (unsigned long long i = 0; i < n; i++)
 			toret.arr[i] = rng();
 		
 		return toret;
