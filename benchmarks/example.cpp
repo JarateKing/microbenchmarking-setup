@@ -30,9 +30,9 @@ int main() {
 	benchmarking::setup();
 	
 	benchmarking::Options options;
-	options.measured_runs = 10;
-	options.target_runtime = 0.01;
-	options.n = {10, 100, 1000, 10000, 100000};
+	options.measured_runs = 25;
+	options.target_runtime = 0.1;
+	options.n = {10, 100, 1000, 10000, 100000, 1000000, 10000000};
 	options.isMutable = true;
 	
 	benchmarking::run(options, datasets, algorithms);
