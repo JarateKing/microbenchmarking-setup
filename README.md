@@ -4,43 +4,60 @@ A microbenchmarking setup intended to be quick and easy to use, to quickly and e
 
 ## How To
 
-1. Create file with the relevant benchmark utilities:
+1. Create file with the relevant benchmark utilities and setup:
 
 ```
-// include these
-#include "benchmark.h"
-#include "benchmark_options.h"
+#include "src/benchmarking.h"
 
-// 
-BENCHMARK( Example One, {
-	// metadata
-	std::string description = "Description for Example One";
+std::vector<benchmarking::Dataset> datasets = {
+	{
+		"Random",
+		DATASET_FUNC( benchmarking::random(n).wrap(0,n-1) ),
+	},
+	{
+		"Sorted", 
+		DATASET_FUNC( benchmarking::index(n) ),
+	},
+};
+
+std::vector<benchmarking::Algorithm> algorithms = {
+	{
+		"std::sort",
+		ALGO_SETUP(),
+		ALGO_BENCHMARK( std::sort(arr.begin(), arr.end()); ),
+		ALGO_CLEANUP(),
+	},
+	{
+		"std::stable_sort",
+		ALGO_SETUP(),
+		ALGO_BENCHMARK( std::stable_sort(arr.begin(), arr.end()); ),
+		ALGO_CLEANUP(),
+	},
+};
+
+int main() {
+	benchmarking::setup();
 	
-	// methods
-	void Pre(unsigned long long n) {
-		// setup before running
-	}
-	void Run(unsigned long long  n) {
-		// thing to benchmark
-	}
-	void Post(unsigned long long  n) {
-		// cleanup after running
-	}
-});
+	benchmarking::Options options;
+	options.measured_runs = 10;
+	options.target_runtime = 0.01;
+	options.n = {10, 100, 1000, 10000, 100000};
+	options.isMutable = true;
+	
+	benchmarking::run(options, datasets, algorithms);
+}
 ```
 
-2. Modify `benchmark_options.h` as needed. This controls things like how many iterations to run of a test, or how big the maximum size of `n` is.
-
-3. Compile all source files:
+2. Compile source file:
 
 ```
-g++ -g -O2 -std=gnu++17 -static benchmark.cpp example1.cpp example2.cpp
+g++ -g -O2 -std=gnu++17 -static example.cpp
 ```
 
-4. Run the compiled program, piping its output to `plot.py`:
+3. Run the compiled program, piping its output to `plot.py`:
 
 ```
 ./a.exe | python plot.py
 ```
 
-This both saves the plot as an image and showcases it on your screen.
+This will present you with multiple plots (one for each dataset) which you can either view or save.
