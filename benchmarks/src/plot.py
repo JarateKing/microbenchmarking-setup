@@ -22,7 +22,7 @@ for d in range(datasetCount):
     datasetName = inputs[lindex]
     lindex += 1
     
-    nindex = 0
+    plt.figure()
     for a in range(algorithmCount):
         averageY = []
         pointsX = []
@@ -41,8 +41,6 @@ for d in range(datasetCount):
         
         plt.plot(datasetN, averageY, '-')
         plt.scatter(pointsX, pointsY, marker='_', alpha=0.5)
-        
-        nindex += 1
     
     plt.title(datasetName)
     plt.yscale('log')
@@ -50,4 +48,6 @@ for d in range(datasetCount):
     plt.ylabel('rate per second')
     plt.xlabel('n')
     plt.legend(algorithmNames)
-    plt.show()
+    plt.show(block=False)
+
+plt.show()
