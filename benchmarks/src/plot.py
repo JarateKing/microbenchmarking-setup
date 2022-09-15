@@ -1,5 +1,6 @@
 import sys
 import matplotlib.pyplot as plt
+import math
 
 inputs = []
 for line in sys.stdin:
@@ -27,10 +28,17 @@ for d in range(datasetCount):
         averageY = []
         pointsX = []
         pointsY = []
+        standardDeviations = []
     
         for n in datasetN:
             runtimes = list(map(float, inputs[lindex].split()))
             average = sum(runtimes) / len(runtimes)
+            
+            variance = 0
+            for r in runtimes:
+                variance += (r - average)**2 / len(runtimes)
+            standardDeviation = math.sqrt(variance)
+            
             lindex += 1
             
             for runtime in runtimes:
@@ -38,9 +46,12 @@ for d in range(datasetCount):
                 pointsY.append(runtime)
             
             averageY.append(average)
+            standardDeviations.append(standardDeviation)
         
-        plt.plot(datasetN, averageY, '-')
-        plt.scatter(pointsX, pointsY, marker='_', alpha=0.5)
+        line, = plt.plot(datasetN, averageY, '-')
+        plt.scatter(pointsX, pointsY, marker='_', alpha=0.25, color=line.get_color())
+        plt.errorbar(datasetN, averageY, standardDeviations, linestyle='None', marker=' ', ecolor=line.get_color(), capsize=5)
+        
     
     plt.title(datasetName)
     plt.yscale('log')
