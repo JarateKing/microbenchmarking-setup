@@ -3,11 +3,11 @@
 
 std::vector<benchmarking::Dataset> datasets = {
 	{
-		"random",
+		"Random",
 		DATASET_FUNC( benchmarking::random(n).wrap(0,n-1) ),
 	},
 	{
-		"sorted", 
+		"Sorted", 
 		DATASET_FUNC( benchmarking::index(n) ),
 	},
 };
@@ -31,9 +31,9 @@ int main() {
 	benchmarking::setup();
 	
 	benchmarking::Options options;
-	options.measured_runs = 3;
-	options.target_runtime = 0.1;
-	options.n = {10ull, 15ull};
+	options.measured_runs = 10;
+	options.target_runtime = 0.01;
+	options.n = {10, 100, 1000, 10000, 100000};
 	options.isMutable = true;
 	
 	benchmarking::run(options, datasets, algorithms);
