@@ -1,5 +1,4 @@
 #include "src/benchmarking.h"
-#include <iostream>
 
 std::vector<benchmarking::Dataset> datasets = {
 	{
