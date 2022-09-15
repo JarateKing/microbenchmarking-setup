@@ -1,12 +1,3 @@
-# Microbenchmarking Setup in C++
-
-A microbenchmarking setup intended to be quick and easy to use, to quickly and easily create a microbenchmark to compare runtime performance between algorithms.
-
-## How To
-
-1. Create file with the relevant benchmark utilities and setup:
-
-```
 #include "src/benchmarking.h"
 
 std::vector<benchmarking::Dataset> datasets = {
@@ -46,18 +37,3 @@ int main() {
 	
 	benchmarking::run(options, datasets, algorithms);
 }
-```
-
-2. Compile source file:
-
-```
-g++ -g -O2 -std=gnu++17 -static example.cpp
-```
-
-3. Run the compiled program, piping its output to `plot.py`:
-
-```
-./a.exe | python plot.py
-```
-
-This will present you with multiple plots (one for each dataset) which you can either view or save.

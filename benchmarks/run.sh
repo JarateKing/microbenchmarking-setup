@@ -1,3 +1,3 @@
-g++ -g -O2 -std=gnu++17 -static benchmark.cpp example1.cpp example2.cpp
+g++ -g -O2 -std=gnu++17 -static example.cpp
 ./a.exe > data.out
-python plot.py < data.out
+python src/plot.py < data.out
