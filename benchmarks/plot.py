@@ -47,5 +47,7 @@ for d in range(datasetCount):
     plt.title(datasetName)
     plt.yscale('log')
     plt.xscale('log')
+    plt.ylabel('rate per second')
+    plt.xlabel('n')
     plt.legend(algorithmNames)
     plt.show()
