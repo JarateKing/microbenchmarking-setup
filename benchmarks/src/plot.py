@@ -24,6 +24,15 @@ for d in range(datasetCount):
     lindex += 1
     
     plt.figure()
+    
+    lindex2 = lindex
+    baselineY = []
+    for n in datasetN:
+        runtimes = list(map(float, inputs[lindex2].split()))
+        average = sum(runtimes) / len(runtimes)
+        baselineY.append(average)
+        lindex2 += 1
+    
     for a in range(algorithmCount):
         averageY = []
         pointsX = []
@@ -33,30 +42,31 @@ for d in range(datasetCount):
         for n in datasetN:
             runtimes = list(map(float, inputs[lindex].split()))
             average = sum(runtimes) / len(runtimes)
+            adjusted = average / baselineY[len(averageY)]
             
             variance = 0
             for r in runtimes:
-                variance += (r - average)**2 / len(runtimes)
+                variance += ((r / baselineY[len(averageY)]) - adjusted)**2 / len(runtimes)
             standardDeviation = math.sqrt(variance)
             
             lindex += 1
             
             for runtime in runtimes:
                 pointsX.append(n)
-                pointsY.append(runtime)
+                pointsY.append(runtime / baselineY[len(averageY)])
             
-            averageY.append(average)
+            averageY.append(adjusted)
             standardDeviations.append(standardDeviation)
         
         line, = plt.plot(datasetN, averageY, '-')
-        plt.scatter(pointsX, pointsY, marker='_', alpha=0.25, color=line.get_color())
+        #plt.scatter(pointsX, pointsY, marker='_', alpha=0.25, color=line.get_color())
         plt.errorbar(datasetN, averageY, standardDeviations, linestyle='None', marker=' ', ecolor=line.get_color(), capsize=5)
         
     
     plt.title(datasetName)
-    plt.yscale('log')
+    #plt.yscale('log')
     plt.xscale('log')
-    plt.ylabel('rate per second')
+    plt.ylabel('relative throughput')
     plt.xlabel('n')
     plt.legend(algorithmNames)
     plt.show(block=False)
