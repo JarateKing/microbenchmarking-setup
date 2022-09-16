@@ -8,9 +8,9 @@
 #include <sstream>
 
 #define DATASET_FUNC(f) [](unsigned long long n, std::mt19937 rng) -> benchmarking::Data { return f; }
-#define ALGO_SETUP(f) [](unsigned long long n, std::vector<int> arr, std::mt19937 rng) { f }
-#define ALGO_BENCHMARK(f) [](unsigned long long n, std::vector<int> arr, std::mt19937 rng) { f }
-#define ALGO_CLEANUP(f) [](unsigned long long n, std::vector<int> arr, std::mt19937 rng) { f }
+#define ALGO_SETUP(f) [](unsigned long long n, std::vector<int>* arr, std::mt19937 rng) { f }
+#define ALGO_BENCHMARK(f) [](unsigned long long n, std::vector<int>* arr, std::mt19937 rng) { f }
+#define ALGO_CLEANUP(f) [](unsigned long long n, std::vector<int>* arr, std::mt19937 rng) { f }
 
 namespace benchmarking {
 	struct Dataset {
@@ -20,9 +20,9 @@ namespace benchmarking {
 	
 	struct Algorithm {
 		std::string name;
-		std::function<void(unsigned long long, std::vector<int>, std::mt19937)> setup;
-		std::function<void(unsigned long long, std::vector<int>, std::mt19937)> benchmark;
-		std::function<void(unsigned long long, std::vector<int>, std::mt19937)> cleanup;
+		std::function<void(unsigned long long, std::vector<int>*, std::mt19937)> setup;
+		std::function<void(unsigned long long, std::vector<int>*, std::mt19937)> benchmark;
+		std::function<void(unsigned long long, std::vector<int>*, std::mt19937)> cleanup;
 	};
 	
 	struct Options {
@@ -65,9 +65,9 @@ namespace benchmarking {
 						if (options.isMutable)
 							data = dataset.generator(n, rng).arr;
 						
-						algo.setup(n, data, rng);
-						algo.benchmark(n, data, rng);
-						algo.cleanup(n, data, rng);
+						algo.setup(n, &data, rng);
+						algo.benchmark(n, &data, rng);
+						algo.cleanup(n, &data, rng);
 					}
 					
 					std::chrono::high_resolution_clock::time_point t1, t2;
@@ -80,15 +80,15 @@ namespace benchmarking {
 							if (options.isMutable)
 								data = dataset.generator(n, rng).arr;
 							
-							algo.setup(n, data, rng);
+							algo.setup(n, &data, rng);
 							
 							t1 = std::chrono::high_resolution_clock::now();
-							algo.benchmark(n, data, rng);
+							algo.benchmark(n, &data, rng);
 							t2 = std::chrono::high_resolution_clock::now();
 							time += std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
 							count++;
 							
-							algo.cleanup(n, data, rng);
+							algo.cleanup(n, &data, rng);
 						}
 						
 						output[i] << (count * (1000000000.0 / time)) << ' ';
