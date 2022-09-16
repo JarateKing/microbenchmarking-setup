@@ -29,10 +29,9 @@ for d in range(datasetCount):
         pointsX = []
         pointsY = []
         standardDeviations = []
-        
-        lindexmult = 0
+    
         for n in datasetN:
-            runtimes = list(map(float, inputs[lindex + lindexmult * algorithmCount].split()))
+            runtimes = list(map(float, inputs[lindex].split()))
             average = sum(runtimes) / len(runtimes)
             
             variance = 0
@@ -40,7 +39,7 @@ for d in range(datasetCount):
                 variance += (r - average)**2 / len(runtimes)
             standardDeviation = math.sqrt(variance)
             
-            lindexmult += 1
+            lindex += 1
             
             for runtime in runtimes:
                 pointsX.append(n)
@@ -52,8 +51,6 @@ for d in range(datasetCount):
         line, = plt.plot(datasetN, averageY, '-')
         plt.scatter(pointsX, pointsY, marker='_', alpha=0.25, color=line.get_color())
         plt.errorbar(datasetN, averageY, standardDeviations, linestyle='None', marker=' ', ecolor=line.get_color(), capsize=5)
-        
-        lindex += 1
         
     
     plt.title(datasetName)

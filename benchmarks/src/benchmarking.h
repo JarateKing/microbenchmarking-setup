@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <cfloat>
 #include <random>
+#include <sstream>
 
 #define DATASET_FUNC(f) [](unsigned long long n, std::mt19937 rng) -> benchmarking::Data { return f; }
 #define ALGO_SETUP(f) [](unsigned long long n, std::vector<int> arr, std::mt19937 rng) { f }
@@ -34,7 +35,6 @@ namespace benchmarking {
 	
 	void run(Options options, std::vector<Dataset> datasets, std::vector<Algorithm> algorithms) {
 		std::cout << datasets.size() << ' ' << algorithms.size() << '\n';
-		std::cout << std::fixed << std::setprecision(10); 
 		
 		for (Algorithm algo : algorithms) {
 			std::cout << algo.name << '\n';
@@ -48,13 +48,20 @@ namespace benchmarking {
 		for (Dataset dataset : datasets) {
 			std::cout << dataset.name << '\n';
 			
+			std::vector<std::stringstream> output(algorithms.size());
+			for (int i = 0; i < algorithms.size(); i++) {
+				output[i] << std::fixed << std::setprecision(10);
+			}
+			
 			for (unsigned long long n : options.n) {
 				std::vector<int> data;
 				if (!options.isMutable)
 					data = dataset.generator(n, rng).arr;
 				
-				for (Algorithm algo : algorithms) {
-					for (int i = 0; i < options.warmup_runs; i++) {
+				for (int i = 0; i < algorithms.size(); i++) {
+					Algorithm algo = algorithms[i];
+					
+					for (int j = 0; j < options.warmup_runs; j++) {
 						if (options.isMutable)
 							data = dataset.generator(n, rng).arr;
 						
@@ -65,7 +72,7 @@ namespace benchmarking {
 					
 					std::chrono::high_resolution_clock::time_point t1, t2;
 					
-					for (int i = 0; i < options.measured_runs; i++) {
+					for (int j = 0; j < options.measured_runs; j++) {
 						long double time = 0;
 						double count = 0;
 						
@@ -84,10 +91,14 @@ namespace benchmarking {
 							algo.cleanup(n, data, rng);
 						}
 						
-						std::cout << (count * (1000000000.0 / time)) << ' ';
+						output[i] << (count * (1000000000.0 / time)) << ' ';
 					}
-					std::cout << '\n';
+					output[i] << '\n';
 				}
+			}
+			
+			for (int i = 0; i < algorithms.size(); i++) {
+				std::cout << output[i].str();
 			}
 		}
 	}
