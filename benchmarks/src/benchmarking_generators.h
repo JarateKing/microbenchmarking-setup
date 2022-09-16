@@ -91,6 +91,13 @@ namespace benchmarking {
 			}
 			return *this;
 		}
+		Data absolute() {
+			for (unsigned long long i = 0; i < arr.size(); i++) {
+				if (arr[i] < 0)
+					arr[i] *= -1;
+			}
+			return *this;
+		}
 	};
 	
 	void setup() {
